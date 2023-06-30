@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "chatgpt-lean4-plugin"
+version = "0.1.0"
+description = ""
+authors = ["Kazuhisa Nakasho <k.nakasho@gmail.com>"]
+readme = "README.md"
+packages = [{include = "chatgpt_lean4_plugin"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
