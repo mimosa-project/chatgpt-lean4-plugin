@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: Lean4 Prover Plugin
+  description: A plugin that allows the user to verify your source code written in Lean4 prover using ChatGPT.
+  version: 'v1'
+servers:
+  - url: http://localhost:5004
+paths:
+  /diagnose/{userid}:
+    get:
+      operationId: getDiagnostics
+      summary: Get the diagnostics of source code by Lean4 prover.
+      parameters:
+      - in: path
+        name: userid
+        schema:
+            type: string
+        required: true
+        description: The unique ID of the user. If you want to get the diagnostics of the source code, you need to specify the same ID as the one you specified when you posted the source code.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getDiagnosticsResponse200'
+        "204":
+          description: No Content. The source code has not been posted yet, the diagnosis is not completed yet, or the diagnosis is deleted due to expration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getDiagnosticsResponse204'
+    post:
+      operationId: postSouceCode
+      summary: Post the Lean4 source code to request Lean4 prover to make diagnoses.
+      parameters:
+      - in: path
+        name: userid
+        schema:
+            type: string
+        required: true
+        description: The unique ID of the user. If you want to get the diagnostics of the source code, you need to specify the same ID as the one you specified when you posted the source code.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/postSourceCodeRequest'
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    getDiagnosticsResponse200:
+      type: object
+      properties:
+        diagnostics:
+          type: array
+          items:
+            line_no:
+              type: integer
+              description: The line number of the source code.
+            column_no:
+              type: integer
+              description: The column number of the source code.
+            severity:
+              type: string
+              description: The severity of the diagnostic.
+            message:
+              type: string
+              description: The message of the diagnostic.
+          description: The list of diagnostic.
+    getDiagnosticsResponse204:
+      type: object
+      properties:
+        progress:
+          type: integer
+          description: Percentage [%] of progress of diagnosis. If the diagnosis is completed, the value is 100. If the diagnosis is deleted due to expration, the value is -1.
+    postSourceCodeRequest:
+      type: object
+      required:
+      - code
+      properties:
+        code:
+          type: string
+          description: The source code to make diagnoses by Lean4 prover.
+          required: true
