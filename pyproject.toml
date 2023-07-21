@@ -8,6 +8,9 @@ packages = [{include = "chatgpt_lean4_plugin"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+quart = "^0.18.4"
+quart-cors = "^0.6.0"
+pylspclient = "^0.0.2"
 
 
 [build-system]

@@ -1,0 +1,18 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "Lean4 Prover (no auth)",
+    "name_for_model": "lean4_prover",
+    "description_for_human": "Manage your Lean4 source code. You can verify your source code written in Lean4.",
+    "description_for_model": "Plugin for Lean4 theorem prover, you can verify your source code in Lean4.",
+    "auth": {
+      "type": "none"
+    },
+    "api": {
+      "type": "openapi",
+      "url": "http://localhost:5004/openapi.yaml"
+    },
+    "logo_url": "http://localhost:5004/logo.png",
+    "contact_email": "k.nakasho@gmail.com",
+    "legal_info_url": "https://github.com/mimosa-project/chatgpt-lean4-plugin"
+  }
+  
